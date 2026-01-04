@@ -1,0 +1,109 @@
+const canvas = document.getElementById("canvas");
+const textInput = document.getElementById("textInput");
+const colorPicker = document.getElementById("colorPicker");
+const imgInput = document.getElementById("imgInput");
+
+// Add draggable text
+function addText() {
+  const t = document.createElement("div");
+  t.innerText = textInput.value;
+  t.style.color = colorPicker.value;
+  t.className = "draggable";
+  t.style.top = "50px";
+  t.style.left = "50px";
+  drag(t);
+  canvas.appendChild(t);
+}
+
+// Add draggable image
+imgInput.onchange = e => {
+  const img = document.createElement("img");
+  img.src = URL.createObjectURL(e.target.files[0]);
+  img.style.width = "100px";
+  img.className = "draggable";
+  img.style.top = "50px";
+  img.style.left = "50px";
+  drag(img);
+  canvas.appendChild(img);
+};
+
+// Drag & drop logic
+function drag(el) {
+  el.onmousedown = e => {
+    let offsetX = e.offsetX;
+    let offsetY = e.offsetY;
+
+    document.onmousemove = e2 => {
+      let x = e2.pageX - offsetX - canvas.offsetLeft;
+      let y = e2.pageY - offsetY - canvas.offsetTop;
+
+      // Keep inside canvas
+      x = Math.max(0, Math.min(x, canvas.clientWidth - el.offsetWidth));
+      y = Math.max(0, Math.min(y, canvas.clientHeight - el.offsetHeight));
+
+      el.style.left = x + "px";
+      el.style.top = y + "px";
+    };
+
+    document.onmouseup = () => document.onmousemove = null;
+  };
+}
+
+// Download canvas as image
+function download() {
+  html2canvas(canvas).then(c => {
+    const a = document.createElement("a");
+    a.download = "design.png";
+    a.href = c.toDataURL();
+    a.click();
+  });
+}
+
+// Change canvas background color
+function changeBg(color) {
+  canvas.style.background = color;
+}
+
+// Clear canvas helper
+function clearCanvas() {
+  canvas.innerHTML = "";
+}
+
+// Templates
+function templateInstagram() {
+  clearCanvas();
+  canvas.style.background = "#fce4ec";
+
+  let t = document.createElement("div");
+  t.innerText = "New Post!";
+  t.style.fontSize = "28px";
+  t.style.color = "#880e4f";
+  t.style.top = "150px";
+  t.style.left = "60px";
+  t.className = "draggable";
+  drag(t);
+  canvas.appendChild(t);
+}
+
+function templateFlyer() {
+  clearCanvas();
+  canvas.style.background = "#e3f2fd";
+
+  let h = document.createElement("div");
+  h.innerText = "EVENT TODAY";
+  h.style.fontSize = "24px";
+  h.style.color = "#0d47a1";
+  h.style.top = "80px";
+  h.style.left = "40px";
+  h.className = "draggable";
+  drag(h);
+  canvas.appendChild(h);
+
+  let p = document.createElement("div");
+  p.innerText = "Join us at 5pm";
+  p.style.top = "150px";
+  p.style.left = "60px";
+  p.className = "draggable";
+  drag(p);
+  canvas.appendChild(p);
+}
