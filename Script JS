@@ -1,4 +1,16 @@
-const canvas = document.getElementById("canvas");
+// Your Firebase config
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "SENDER_ID",
+  appId: "APP_ID"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();const canvas = document.getElementById("canvas");
 const textInput = document.getElementById("textInput");
 const colorPicker = document.getElementById("colorPicker");
 const imgInput = document.getElementById("imgInput");
