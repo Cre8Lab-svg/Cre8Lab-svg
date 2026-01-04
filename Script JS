@@ -180,4 +180,14 @@ function addResizeHandle(el) {
 
     document.onmouseup = () => { document.onmousemove = null; };
   };
+}function saveDesign() {
+  html2canvas(canvas).then(c => {
+    const dataURL = c.toDataURL(); // converts canvas into image
+    db.collection("designs").add({
+      image: dataURL,
+      timestamp: Date.now()
+    }).then(() => alert("Design saved online!"))
+      .catch(err => alert("Error: " + err));
+  });
 }
+
