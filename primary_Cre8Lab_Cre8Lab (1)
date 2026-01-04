@@ -1,0 +1,40 @@
+const canvas = document.getElementById("canvas");
+
+function addText(){
+ let t = document.createElement("div");
+ t.innerText = textInput.value;
+ t.style.color = colorPicker.value;
+ t.className="draggable";
+ t.style.top="50px"; t.style.left="50px";
+ drag(t);
+ canvas.appendChild(t);
+}
+
+imgInput.onchange = e=>{
+ let img = document.createElement("img");
+ img.src = URL.createObjectURL(e.target.files[0]);
+ img.style.width="100px";
+ img.className="draggable";
+ drag(img);
+ canvas.appendChild(img);
+};
+
+function drag(el){
+ el.onmousedown = e=>{
+  let x=e.offsetX, y=e.offsetY;
+  document.onmousemove = e2=>{
+    el.style.left=(e2.pageX-x-canvas.offsetLeft)+"px";
+    el.style.top=(e2.pageY-y-canvas.offsetTop)+"px";
+  }
+  document.onmouseup=()=>document.onmousemove=null;
+ }
+}
+
+function download(){
+ html2canvas(canvas).then(c=>{
+   let a=document.createElement("a");
+   a.download="design.png";
+   a.href=c.toDataURL();
+   a.click();
+ });
+}
