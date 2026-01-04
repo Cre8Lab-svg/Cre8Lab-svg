@@ -1,4 +1,4 @@
-console.log("New version loaded");
+alert("NEW JS VERSION LOADED");console.log("New version loaded");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
