@@ -1,14 +1,56 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-function drawBox() {
-  ctx.fillStyle = "#22c55e";
-  ctx.fillRect(50,50,200,100);
+let elements = [];
+let selected = null;
+
+function draw() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  elements.forEach(el => {
+    if(el.type === "text"){
+      ctx.font = `${el.size}px Arial`;
+      ctx.fillStyle = el.color;
+      ctx.fillText(el.text, el.x, el.y);
+    }
+  });
 }
 
-function downloadDesign() {
+function addText(){
+  const text = prompt("Enter text");
+  if(!text) return;
+  elements.push({type:"text", text, x:50, y:80, size:24, color:"#000"});
+  draw();
+}
+
+canvas.addEventListener("mousedown", e=>{
+  const r = canvas.getBoundingClientRect();
+  const x = e.clientX - r.left;
+  const y = e.clientY - r.top;
+
+  for(let i = elements.length-1; i>=0; i--){
+    let el = elements[i];
+    if(el.type==="text"){
+      if(x>el.x && x<el.x+ctx.measureText(el.text).width && y<el.y && y>el.y-el.size){
+        selected = el;
+        break;
+      }
+    }
+  }
+});
+
+canvas.addEventListener("mousemove", e=>{
+  if(!selected) return;
+  const r = canvas.getBoundingClientRect();
+  selected.x = e.clientX - r.left;
+  selected.y = e.clientY - r.top;
+  draw();
+});
+
+canvas.addEventListener("mouseup", ()=> selected=null);
+
+function downloadDesign(){
   const link = document.createElement("a");
-  link.download = "cre8lab-design.png";
+  link.download = "design.png";
   link.href = canvas.toDataURL();
   link.click();
 }
