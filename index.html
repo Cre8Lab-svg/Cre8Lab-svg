@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cre8Lab Mini Canvas</title>
+  <title>Cre8Lab Mini Canva</title>
   <style>
     body {
       background: linear-gradient(135deg,#1f2933,#0f172a);
       color: white;
       font-family: Arial;
       text-align: center;
-      margin: 0;
       padding: 20px;
     }
 
-    <div id="toolbar">
-  <button onclick="addText()">Add Text</button>
-  <button onclick="downloadDesign()">Download</button>
-</div>
+    #toolbar {
+      background: rgba(255,255,255,0.1);
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 15px;
     }
 
     button {
@@ -39,16 +39,15 @@
 
 <body>
 
-<h2>Cre8Lab Mini Canvas</h2>
+<h2>Cre8Lab Mini Canva</h2>
 
 <div id="toolbar">
-  <button onclick="drawBox()">Add Box</button>
+  <button onclick="addText()">Add Text</button>
   <button onclick="downloadDesign()">Download</button>
 </div>
 
 <canvas id="canvas" width="300" height="400"></canvas>
 
 <script src="script.js"></script>
-
 </body>
 </html>
