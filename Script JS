@@ -201,3 +201,6 @@ function addText() {
 function setBgGradient(color1, color2) {
   canvas.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
 }
+function setPattern(url) {
+  canvas.style.background = `url(${url}) center/cover no-repeat`;
+}
