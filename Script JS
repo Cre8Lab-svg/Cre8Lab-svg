@@ -142,4 +142,59 @@ function templateFlyer() {
   p.className = "draggable";
   drag(p);
   canvas.appendChild(p);
+}// Add resize handle to selected text
+function addResizeHandle(el) {
+  // Remove existing handles
+  document.querySelectorAll(".resize-handle").forEach(h => h.remove());
+
+  const handle = document.createElement("div");
+  handle.className = "resize-handle";
+  el.appendChild(handle);
+
+  let startX, startY, startWidth, startHeight;
+
+  handle.onmousedown = e => {
+    e.stopPropagation(); // prevent drag
+    startX = e.clientX;
+    startY = e.clientY;
+    startWidth = el.offsetWidth;
+    startHeight = el.offsetHeight;
+
+    document.onmousemove = e2 => {
+      let newWidth = startWidth + (e2.clientX - startX);
+      let newHeight = startHeight + (e2.clientY - startY);
+
+      el.style.width = newWidth + "px";
+      el.style.height = newHeight + "px";
+    };
+
+    document.onmouseup = () => {
+      document.onmousemove = null;
+    };
+  };
+}
+
+// Update addText to add resize handle
+function addText() {
+  const t = document.createElement("div");
+  t.innerText = textInput.value;
+  t.style.color = colorPicker.value;
+  t.style.fontSize = fontSize.value + "px";
+  t.style.fontFamily = fontSelect.value;
+  t.className = "draggable";
+  t.style.top = "50px";
+  t.style.left = "50px";
+  t.style.position = "absolute";
+  t.style.width = "auto";
+  t.style.height = "auto";
+
+  t.onclick = e => {
+    selectedElement = t;
+    e.stopPropagation();
+    highlightSelected(t);
+    addResizeHandle(t);
+  };
+
+  drag(t);
+  canvas.appendChild(t);
 }
