@@ -51,7 +51,11 @@
   <option value="Courier New">Courier New</option>
   <option value="Georgia">Georgia</option>
 </select>
-
+function setBgGradient(color1, color2) {
+  canvas.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
+}
 <label>Size:</label>
 <input type="number" id="fontSize" value="20" min="8" max="100" onchange="changeFontSize(this.value)">
-</html>
+</html>function setBgGradient(color1, color2) {
+  canvas.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
+}
