@@ -4,7 +4,26 @@ const colorPicker = document.getElementById("colorPicker");
 const imgInput = document.getElementById("imgInput");
 
 // Add draggable text let selectedElement = null;
-function addText() {
+function addText()function addText() {
+  const t = document.createElement("div");
+  t.innerText = textInput.value;
+  t.style.color = colorPicker.value;
+  t.style.fontSize = fontSize.value + "px";  // use current font size
+  t.style.fontFamily = fontSelect.value;     // use current font
+  t.className = "draggable";
+  t.style.top = "50px";
+  t.style.left = "50px";
+
+  // Make selectable
+  t.onclick = e => {
+    selectedElement = t;
+    e.stopPropagation();  // prevent canvas click
+    highlightSelected(t);
+  };
+
+  drag(t);
+  canvas.appendChild(t);
+} {
   const t = document.createElement("div");
   t.innerText = textInput.value;
   t.style.color = colorPicker.value;
@@ -70,7 +89,24 @@ function clearCanvas() {
 }
 
 // Templates
-function templateInstagram() {
+function templateInstagram()function highlightSelected(el) {
+  // Remove highlight from all
+  document.querySelectorAll(".draggable").forEach(d => {
+    d.style.outline = "none";
+  });
+  // Add highlight
+  el.style.outline = "2px dashed #ff0000";
+} function changeFont(f) {
+  if (selectedElement && selectedElement.tagName === "DIV") {
+    selectedElement.style.fontFamily = f;
+  }
+}
+
+function changeFontSize(size) {
+  if (selectedElement && selectedElement.tagName === "DIV") {
+    selectedElement.style.fontSize = size + "px";
+  }
+}{
   clearCanvas();
   canvas.style.background = "#fce4ec";
 
