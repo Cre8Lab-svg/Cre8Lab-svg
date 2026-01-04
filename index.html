@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cre8Lab Mini</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Cre8Lab Mini Editor</h1>
+
+  <!-- Controls -->
+  <input id="textInput" placeholder="Enter text">
+  <button onclick="addText()">Add Text</button>
+  <input type="color" id="colorPicker">
+
+  <input type="file" id="imgInput">
+
+  <!-- Background color picker -->
+  <label>Background:</label>
+  <input type="color" onchange="changeBg(this.value)">
+
+  <!-- Templates -->
+  <div>
+    <button onclick="templateInstagram()">Instagram</button>
+    <button onclick="templateFlyer()">Flyer</button>
+  </div>
+
+  <!-- Canvas -->
+  <div id="canvas"></div>
+
+  <!-- Download button -->
+  <button onclick="download()">Download Design</button>
+
+  <!-- JS Scripts -->
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+</body>
+</html>
