@@ -198,3 +198,6 @@ function addText() {
   drag(t);
   canvas.appendChild(t);
 }
+function setBgGradient(color1, color2) {
+  canvas.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
+}
